@@ -1,30 +1,31 @@
 <?php
 
 Class Person {
-	private $personMessage;
+	private $personName;
 	private $personAge;
 
-	public function __construct() {
+	public function __construct(string $newPersonName, int $newPersonAge) {
+		$this->setPersonName($newPersonName);
+		$this->SetPersonAge($newPersonAge);
+	}
+
+	public function getPersonName(): string {
+		return ($this->personName);
 
 	}
 
-	public function getPersonMessage(): string {
-		return ($this->personMessage);
+	public function setPersonName(string $newPersonName) {
+		$newPersonName = trim($newPersonName);
 
-	}
-
-	public function setPersonMessage(string $newPersonMessage) {
-		$newPersonMessage = trim($newPersonMessage);
-
-		if(empty($newPersonMessage) | !!ctype_alpha($newPersonMessage)) {
-			throw(new \InvalidArgumentException("Message is empty or contains characters other than letters."));
+		if(empty($newPersonName) | !ctype_alpha($newPersonName)) {
+			throw(new \InvalidArgumentException("Name is empty or contains characters other than letters."));
 		}
 		// verify that a message is shorter than 64 characters
-		if(strlen($newPersonMessage) > 64) {
-			throw(new \RangeException("Message is too long."));
+		if(strlen($newPersonName) > 64) {
+			throw(new \RangeException("Name is too long."));
 		}
 		// store the valid message in the class state variable
-		$this->personMessage = $newPersonMessage;
+		$this->personName = $newPersonName;
 	}
 
 	public function getPersonAge(): int {
@@ -52,8 +53,14 @@ Class Person {
 
 
 	public function __toString() : string {
-		$psersonInfo = "<table><tr><th>Message: " .$this->getPersonMessage()
+		$psersonInfo = "<table><tr><th>Name: " .$this->getPersonName()
 			."</th><th>Age: " .$this->getPersonAge() ."</th></tr></table>";
 		return $psersonInfo;
 	}
 }
+
+// test class Person
+
+$newPerson = new Person("James", 25);
+$newPerson->greetPerson();
+$newPerson->__toString();
