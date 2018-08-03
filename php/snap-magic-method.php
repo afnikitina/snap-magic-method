@@ -38,15 +38,22 @@ Class Person {
 
 		$this->personAge = $newPersonAge;
 	}
-}
 
-function greetPerson( Person $newPerson) : string {
-	$age = $newPerson->getPersonAge();
-	if ($age < 18) {
-		return "Hi Caleb!";
-	} else if ($age > 118) {
-		return "Hello captain @deepdivedylan";
-	} else {
-		return "Hi there!!";
+	public function greetPerson() : string {
+		$age = $this->getPersonAge();
+		if ($age < 18) {
+			return "Hi Caleb!";
+		} else if ($age > 118) {
+			return "Hello captain @deepdivedylan";
+		} else {
+			return "Hi there!!";
+		}
+	}
+
+
+	public function __toString() : string {
+		$psersonInfo = "<table><tr><th>Message: " .$this->getPersonMessage()
+			."</th><th>Age: " .$this->getPersonAge() ."</th></tr></table>";
+		return $psersonInfo;
 	}
 }
